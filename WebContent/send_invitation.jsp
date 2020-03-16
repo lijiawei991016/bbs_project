@@ -67,7 +67,7 @@
 
 <!-- Shared on MafiaShare.net  --><!-- Shared on MafiaShare.net  -->
 <style>
-	.w-e-text-container{height: 480px !important;}
+	.w-e-text-container{height: 400px !important;}
 </style>
 </head>
 
@@ -87,12 +87,12 @@
 	<form id="validate" class="form" method="post" action="">
 		<fieldset>
 			<div class="widget">
-				<div class="formRow">
-            		<label>Selects:<span class="req">*</span></label>
+				<div class="formRow" style="margin-top:20px;">
+            		<label>版块:<span class="req">*</span></label>
           			<div class="formRight">
           				<div class="floatL">
-           					<select name="selectReq" id="selectReq" class="validate[required]" >
-                    		<option value="">Usual select box</option>
+           					<select name="plateId" id="selectReq" class="validate[required]" >
+                    		<option value="">请选择版块</option>
                       		<option value="opt2">Option 2</option>
                          	<option value="opt3">Option 3</option>
                       		<option value="opt4">Option 4</option>
@@ -106,7 +106,11 @@
          			<div class="clear"></div>
             	</div>
             	<div class="formRow">
- 					<label>Selects:<span class="req">&nbsp;</span></label>
+      				<label>标题<span class="req">*</span></label>
+          			<div class="formRight"><input type="text" class="validate[required]" name="invitationTitle" id="req"/></div><div class="clear"></div>
+        		</div>
+            	<div class="formRow">
+ 					<label>&nbsp;<span class="req">&nbsp;</span></label>
         			<div id="editor" class="formRight w-e-text-container"></div>
 					<div class="clear"></div>
  				</div>
