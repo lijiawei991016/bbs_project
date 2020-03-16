@@ -110,7 +110,7 @@
           			<div class="formRight"><input type="text" class="validate[required]" name="invitationTitle" id="req"/></div><div class="clear"></div>
         		</div>
             	<div class="formRow">
- 					<label>&nbsp;<span class="req">&nbsp;</span></label>
+ 					<label>内容<span class="req">*</span></label>
         			<div id="editor" class="formRight w-e-text-container"></div>
 					<div class="clear"></div>
  				</div>
