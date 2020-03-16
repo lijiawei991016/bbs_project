@@ -1,5 +1,7 @@
 package com.bbs.service;
 
+import java.util.List;
+
 import com.bbs.dao.UserDao;
 import com.bbs.pojo.User;
 
@@ -31,4 +33,19 @@ public class UserService {
 	public User findUserByIdAndPsw(String userId,String userPsw) {
 		return userDao.findUserByIdAndPsw(userId, userPsw);
 	}
+	/**
+	 * 获取所有的账户信息
+	 * @return
+	 */
+	public List<User> listUsers(){
+		return userDao.listUsers();
+	}
 }
+
+
+
+
+
+
+
+

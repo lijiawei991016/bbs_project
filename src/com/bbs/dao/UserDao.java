@@ -3,7 +3,9 @@ package com.bbs.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.bbs.pojo.User;
 import com.bbs.tools.BaseDao;
@@ -30,7 +32,8 @@ public class UserDao {
 					rs.getString("userEmail"),rs.getString("userSex"),
 					rs.getString("userPhoto"),rs.getDouble("userScore"),
 					rs.getInt("userLevel"),rs.getDate("levelDown"),
-					rs.getDate("userLock"),rs.getDate("userCreateDate"));
+					rs.getDate("userLock"),rs.getDate("userCreateDate"),
+					rs.getInt("isPass"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -87,12 +90,44 @@ public class UserDao {
 					rs.getString("userEmail"),rs.getString("userSex"),
 					rs.getString("userPhoto"),rs.getDouble("userScore"),
 					rs.getInt("userLevel"),rs.getDate("levelDown"),
-					rs.getDate("userLock"),rs.getDate("userCreateDate"));
+					rs.getDate("userLock"),rs.getDate("userCreateDate"),
+					rs.getInt("isPass"));
 			}
 		} catch (Exception e) {e.printStackTrace();
 		} finally {
 			BaseDao.close(con, ps, rs);
 		}
 		return user;
+	}
+	/**
+	 * 获取所有的账户信息
+	 * @return
+	 */
+	public List<User> listUsers(){
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		// 存放所有的用户信息
+		List<User> users = new ArrayList<User>();
+		try {
+			con = BaseDao.getCon();
+			String sql = "select * from bbs_user where userLevel!=4";
+			ps = con.prepareStatement(sql);
+			rs = BaseDao.query(ps,null);
+			while(rs.next()) {
+				users.add(new User(
+					rs.getString("userId"),rs.getString("userPsw"),
+					rs.getString("userAlice"),
+					rs.getString("userEmail"),rs.getString("userSex"),
+					rs.getString("userPhoto"),rs.getDouble("userScore"),
+					rs.getInt("userLevel"),rs.getDate("levelDown"),
+					rs.getDate("userLock"),rs.getDate("userCreateDate"),
+					rs.getInt("isPass")));
+			}
+		} catch (Exception e) {e.printStackTrace();
+		} finally {
+			BaseDao.close(con, ps, rs);
+		}
+		return users;
 	}
 }
