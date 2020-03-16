@@ -40,6 +40,14 @@ public class UserService {
 	public List<User> listUsers(){
 		return userDao.listUsers();
 	}
+	/**
+	 * 修改审核通过
+	 * @param userId 用户账户
+	 * @return 1-成功 0-失败
+	 */
+	public int alterUserPass(String userId) {
+		return userDao.alterUserPass(userId);
+	}
 }
 
 

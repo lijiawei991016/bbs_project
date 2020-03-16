@@ -87,7 +87,7 @@
             	<tr class="gradeA">
             	<td>${curUser.userId }</td>
             	<c:if test="${curUser.isPass == 0 }">
-            		<td><a href="#">待审核</a></td>
+            		<td><a href="${pageContext.request.contextPath}/admin_alter_user_pass?userId=${curUser.userId}">待审核</a></td>
             	</c:if>
             	<c:if test="${curUser.isPass != 0 }">
             		<td>已审核</td>

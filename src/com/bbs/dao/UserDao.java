@@ -130,4 +130,24 @@ public class UserDao {
 		}
 		return users;
 	}
+	/**
+	 * 修改审核通过
+	 * @param userId 用户账户
+	 * @return 1-成功 0-失败
+	 */
+	public int alterUserPass(String userId) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		try {
+			con = BaseDao.getCon();
+			String sql = "update bbs_user set isPass=1 where userId=?";
+			ps = con.prepareStatement(sql);
+			return BaseDao.update(ps,new Object[] {userId});
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			BaseDao.close(con, ps, null);
+		}
+		return 0;
+	}
 }
