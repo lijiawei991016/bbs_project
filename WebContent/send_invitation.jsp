@@ -70,7 +70,7 @@
 
 <!-- Shared on MafiaShare.net  --><!-- Shared on MafiaShare.net  -->
 <style>
-	.w-e-text-container{height: 400px !important;}
+	.w-e-text-container{height: 300px !important;}
 </style>
 </head>
 
@@ -86,15 +86,20 @@
     <!-- Top fixed navigation -->
     <%@ include file="user_top_nav.jsp" %>
     
+    <!-- Note -->
+	<div class="nNote nInformation hideit">
+		<p><strong>消息： </strong>请填写所有内容！</p>
+	</div>
+    
     <!-- Validation form -->
-	<form id="validate" class="form" method="post" action="">
+	<form class="form" method="post" action="">
 		<fieldset>
 			<div class="widget">
-				<div class="formRow" style="margin-top:20px;">
+				<div class="formRow">
             		<label>版块:<span class="req">*</span></label>
           			<div class="formRight">
           				<div class="floatL">
-           					<select name="plateId" id="plateId" class="validate[required]" >
+           					<select name="plateId" class="validate[required]" >
                     		<option value="">请选择版块</option>
                     		<c:forEach items="${plates }" var="plate">
                     			<option value="${plate.plateId }">${plate.plateTitle }</option>
@@ -106,7 +111,7 @@
             	</div>
             	<div class="formRow">
       				<label>标题<span class="req">*</span></label>
-          			<div class="formRight"><input type="text" class="validate[required]" name="invitationTitle" id="invitationTitle"/></div><div class="clear"></div>
+          			<div class="formRight"><input type="text" class="validate[required]" name="invitationTitle"/></div><div class="clear"></div>
         		</div>
             	<div class="formRow">
  					<label>内容<span class="req">*</span></label>
@@ -117,6 +122,7 @@
 				<div class="clear"></div>
 			</div>
 		</fieldset>
+		<input type="hidden" name="invitationMessage" id="invitationMessage"/>
 	</form>
     
     <!-- Footer line -->
@@ -190,6 +196,13 @@
     	}
     }
 	editor.create();
+ // 下面的script用于处理提交 
+ $(function(){
+	 $("form").submit(function(){
+		 // 把富文本框中的内容作为id为invitationMessage的值
+		 $("#invitationMessage").val(editor.txt.html());
+	 });
+ });
 </script>
 </body>
 </html>
