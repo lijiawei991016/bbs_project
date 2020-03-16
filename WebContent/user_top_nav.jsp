@@ -10,7 +10,7 @@
                 <ul>
                 	<!-- 登录后并且通过审核后才能发帖 -->
         			<c:if test="${!empty user && user.isPass==1 }">
-                    	<li><a href="#" title=""><img src="${pageContext.request.contextPath}/static/images/icons/topnav/messages.png" alt="" /><span>发帖</span></a></li>
+                    	<li><a href="${pageContext.request.contextPath}/send_invitation_access" title=""><img src="${pageContext.request.contextPath}/static/images/icons/topnav/messages.png" alt="" /><span>发帖</span></a></li>
                     </c:if>
                     <li>
                     	<c:if test="${!empty user }">
