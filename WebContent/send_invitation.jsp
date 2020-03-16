@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<c:if test="${empty user || user.isPass!=1 }">
+	<jsp:forward page="index.jsp" />
+</c:if>
 <!DOCTYPE html>
 <html>
 <head>
@@ -91,15 +94,11 @@
             		<label>版块:<span class="req">*</span></label>
           			<div class="formRight">
           				<div class="floatL">
-           					<select name="plateId" id="selectReq" class="validate[required]" >
+           					<select name="plateId" id="plateId" class="validate[required]" >
                     		<option value="">请选择版块</option>
-                      		<option value="opt2">Option 2</option>
-                         	<option value="opt3">Option 3</option>
-                      		<option value="opt4">Option 4</option>
-                         	<option value="opt5">Option 5</option>
-                           	<option value="opt6">Option 6</option>
-                       		<option value="opt7">Option 7</option>
-                          	<option value="opt8">Option 8</option>
+                    		<c:forEach items="${plates }" var="plate">
+                    			<option value="${plate.plateId }">${plate.plateTitle }</option>
+                    		</c:forEach>
                      		</select>
                  		</div>
          			</div>
@@ -107,7 +106,7 @@
             	</div>
             	<div class="formRow">
       				<label>标题<span class="req">*</span></label>
-          			<div class="formRight"><input type="text" class="validate[required]" name="invitationTitle" id="req"/></div><div class="clear"></div>
+          			<div class="formRight"><input type="text" class="validate[required]" name="invitationTitle" id="invitationTitle"/></div><div class="clear"></div>
         		</div>
             	<div class="formRow">
  					<label>内容<span class="req">*</span></label>
