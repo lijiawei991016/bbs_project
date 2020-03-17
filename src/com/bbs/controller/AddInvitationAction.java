@@ -28,6 +28,7 @@ public class AddInvitationAction extends HttpServlet {
 		String invitationTitle = request.getParameter("invitationTitle");
 		String invitationMessage = request.getParameter("invitationMessage");
 		// 去除两端空格
+		sPlateId = sPlateId.trim();
 		invitationTitle = invitationTitle.trim();
 		invitationMessage = invitationMessage.trim();
 		// 验证内容是否都有
