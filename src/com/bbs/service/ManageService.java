@@ -47,4 +47,12 @@ public class ManageService {
 	public List<Invitation> listiInvitations(){
 		return manageDao.listInvitations();
 	}
+	/**
+	 * 根据帖子id查询帖子
+	 * @param invitationId--帖子id
+	 * @return 成功返回找到的帖子对象，失败返回null
+	 */
+	public Invitation findInvitationById(String invitationId) {
+		return manageDao.findInvitationById(invitationId);
+	}
 }

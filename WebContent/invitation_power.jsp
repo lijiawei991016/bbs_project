@@ -72,14 +72,14 @@
 	
 	<!-- Validation form -->
     <form id="validate" class="form" method="post" action="">
-    	<input type="hidden" name="invitationId" value="" />
+    	<input type="hidden" name="invitationId" value="${invitation.invitationId }" />
 		<fieldset>
 			<div class="widget">
 				<div class="title"><img src="images/icons/dark/alert.png" alt="" class="titleIcon" /><h6>帖子权限</h6></div>
 				<div class="formRow">
 					<label>帖子标题:<span class="req">*</span></label>
      				<div class="formRight">
-     					<input type="text" readonly="readonly" value=""/>
+     					<input type="text" readonly="readonly" value="${invitation.invitationTitle }"/>
      				</div>
      				<div class="clear"></div>
   				</div>
@@ -87,20 +87,23 @@
     				<label>帖子内容:<span class="req">*</span></label>
     				<div class="formRight">
     					<!-- 内容 -->
+    					${invitation.invitationMessage }
     				</div>
     				<div class="clear"></div>
 				</div>
 				<div class="formRow">
                		<label>权限设置:<span class="req">*</span></label>
           			<div class="formRight">
-           				<div class="floatL">
-           					<!-- 审核后就不会显示了 -->
-          					<select name="selectReq" id="selectReq" class="validate[required]" >
+          				<!-- 审核后就不会显示了 -->
+           				<c:if test="${invitation.isPass == 0 }">
+           					<div class="floatL">
+	           					<select name="selectReq" id="selectReq" class="validate[required]" >
                         		<option value="">审核结果</option>
                            		<option value="opt2">通过</option>
                            		<option value="opt2">不通过</option>
-                  			</select>
-               			</div>
+                  				</select>
+               				</div>
+               			</c:if>
          				<div class="floatL" style="margin: 2px 0 0 10px;"><input type="checkbox" id="isEnable" name="isEnable" data-prompt-position="topRight:102" /><label for="isEnable">是否屏蔽</label></div>
         				<div class="floatL" style="margin: 2px 0 0 10px;"><input type="checkbox" id="isCream" name="isCream" data-prompt-position="topRight:102" /><label for="isCream">是否是精华帖</label></div>
           			</div>

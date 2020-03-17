@@ -155,6 +155,43 @@ public class ManageDao {
 		}
 		return invitations;
 	}
+	/**
+	 * 根据帖子id查询帖子
+	 * @param invitationId--帖子id
+	 * @return 成功返回找到的帖子对象，失败返回null
+	 */
+	public Invitation findInvitationById(String invitationId) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Invitation invitation = null;
+		try {
+			con = BaseDao.getCon();
+			String sql = "select * from bbs_invitation where invitationId=?";
+			ps = con.prepareStatement(sql);
+			rs = BaseDao.query(ps,new Object[] {invitationId});
+			// 格式化日期时间
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			// 逐行把信息读取出来，放入列表中
+			if(rs.next()) {
+				invitation = new Invitation(
+							rs.getString("invitationId"),
+							URLDecoder.decode(rs.getString("invitationTitle"),"UTF-8"),
+							URLDecoder.decode(rs.getString("invitationMessage"),"UTF-8"),
+							rs.getString("userId"),rs.getInt("plateId"),
+							rs.getInt("categoryId"),rs.getInt("isPass"),
+							rs.getInt("isEnable"),rs.getInt("isCream"),
+							sdf.parse(rs.getString("invitationCreate")),
+							sdf.parse(rs.getString("invitationModify"))
+				);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			BaseDao.close(con, ps, rs);
+		}
+		return invitation;
+	}
 }
 
 

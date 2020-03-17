@@ -89,7 +89,7 @@
             	<c:forEach items="${invitations }" var="inv">
             		<tr class="gradeA">
             		<td>${inv.userId }</td>
-            		<td><a href="#?invitationId=${inv.invitationId }">${inv.invitationTitle }</a></td>
+            		<td><a href="${pageContext.request.contextPath}/invitation_power?invitationId=${inv.invitationId }">${inv.invitationTitle }</a></td>
             		<c:choose>
             			<c:when test="${inv.isPass == 0 }">
             				<td class="center">待审核</td>
