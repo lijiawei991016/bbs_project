@@ -192,6 +192,29 @@ public class ManageDao {
 		}
 		return invitation;
 	}
+	/**
+	 * 修改帖子的权限
+	 * @param invitation--帖子
+	 * @return 1-成功 0-失败
+	 */
+	public int alterInvitationPower(Invitation invitation) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		try {
+			con = BaseDao.getCon();
+			String sql = "update bbs_invitation set isPass=?"
+					+ " where invitationId=?";
+			ps = con.prepareStatement(sql);
+			return BaseDao.update(ps, new Object[] {
+				invitation.getIsPass(),invitation.getInvitationId()
+			});
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			BaseDao.close(con, ps, null);
+		}
+		return 0;
+	}
 }
 
 

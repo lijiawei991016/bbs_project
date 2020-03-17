@@ -55,4 +55,12 @@ public class ManageService {
 	public Invitation findInvitationById(String invitationId) {
 		return manageDao.findInvitationById(invitationId);
 	}
+	/**
+	 * 修改帖子的权限
+	 * @param invitation--帖子
+	 * @return 1-成功 0-失败
+	 */
+	public int alterInvitationPower(Invitation invitation) {
+		return manageDao.alterInvitationPower(invitation);
+	}
 }

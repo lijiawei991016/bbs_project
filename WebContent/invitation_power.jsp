@@ -71,7 +71,7 @@
 	<%@ include file="admin_top_nav.jsp" %>
 	
 	<!-- Validation form -->
-    <form id="validate" class="form" method="post" action="">
+    <form id="validate" class="form" method="post" action="${pageContext.request.contextPath}/invitation_power_action">
     	<input type="hidden" name="invitationId" value="${invitation.invitationId }" />
 		<fieldset>
 			<div class="widget">
@@ -97,10 +97,10 @@
           				<!-- 审核后就不会显示了 -->
            				<c:if test="${invitation.isPass == 0 }">
            					<div class="floatL">
-	           					<select name="selectReq" id="selectReq" class="validate[required]" >
+	           					<select name="isPass" id="selectReq" class="validate[required]" >
                         		<option value="">审核结果</option>
-                           		<option value="opt2">通过</option>
-                           		<option value="opt2">不通过</option>
+                           		<option value="1">通过</option>
+                           		<option value="2">不通过</option>
                   				</select>
                				</div>
                			</c:if>
