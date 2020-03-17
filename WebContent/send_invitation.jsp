@@ -88,11 +88,11 @@
     
     <!-- Note -->
 	<div class="nNote nInformation hideit">
-		<p><strong>消息： </strong>请填写所有内容！</p>
+		<p><strong>消息： </strong>${empty message?"请填写所有内容！":message }</p>
 	</div>
     
     <!-- Validation form -->
-	<form class="form" method="post" action="">
+	<form class="form" method="post" action="${pageContext.request.contextPath}/add_invitation">
 		<fieldset>
 			<div class="widget">
 				<div class="formRow">
