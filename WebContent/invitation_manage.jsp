@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -85,14 +86,40 @@
             </tr>
             </thead>
             <tbody>
-            	<tr class="gradeA">
-            	<td>sss</td>
-            	<td>哈哈</td>
-            	<td class="center">待审核</td>
-            	<td class="center">未屏蔽</td>
-            	<td class="center">非精华</td>
-            	<td>2020-03-17 11:20:17</td>
-            </tr>
+            	<c:forEach items="${invitations }" var="inv">
+            		<tr class="gradeA">
+            		<td>${inv.userId }</td>
+            		<td><a href="#?invitationId=${inv.invitationId }">${inv.invitationTitle }</a></td>
+            		<c:choose>
+            			<c:when test="${inv.isPass == 0 }">
+            				<td class="center">待审核</td>
+            			</c:when>
+            			<c:when test="${inv.isPass == 1 }">
+            				<td class="center">已通过</td>
+            			</c:when>
+            			<c:otherwise>
+            				<td class="center">未通过</td>
+            			</c:otherwise>
+            		</c:choose>
+					<c:choose>
+						<c:when test="${inv.isEnable == 1 }">
+							<td class="center">已屏蔽</td>
+						</c:when>
+						<c:otherwise>
+							<td class="center">&nbsp;</td>
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when test="${inv.isCream == 1 }">
+							<td class="center">精华</td>
+						</c:when>
+						<c:otherwise>
+							<td class="center">&nbsp;</td>
+						</c:otherwise>
+					</c:choose>
+            		<td><fmt:formatDate value="${inv.invitationModify }" pattern="yyyy-MM-dd HH-mm-ss"/></td>
+            		</tr>
+            	</c:forEach>
             </tbody>
    		</table>  
 	</div>
