@@ -33,7 +33,7 @@ public class ManageService {
 		return manageDao.deltePlateById(plateId);
 	}
 	/**
-	 * 修改plate的Titleh和Message
+	 * 修改plate的Title和Message
 	 * @param plate
 	 * @return 1-成功 0-失败
 	 */

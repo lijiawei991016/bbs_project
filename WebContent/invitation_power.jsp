@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>帖子管理</title>
+<title>管理员页面</title>
 <link href="${pageContext.request.contextPath}/static/css/main.css" rel="stylesheet" type="text/css" />
 
 <script src="${pageContext.request.contextPath}/static/js/jquery.min.js"></script>
@@ -70,59 +69,48 @@
 <div id="rightSide">
 
 	<%@ include file="admin_top_nav.jsp" %>
-    
-	<!-- Dynamic table -->
-	<div class="widget">
- 		<div class="title"><img src="images/icons/dark/full2.png" alt="" class="titleIcon" /><h6>用户管理</h6></div>                          
-		<table cellpadding="0" cellspacing="0" border="0" class="display dTable">
-            <thead>
-            <tr>
-            <th>账户</th>
-            <th>标题</th>
-            <th>审核</th>
-            <th>屏蔽</th>
-            <th>精华</th>
-            <th>修改时间</th>
-            </tr>
-            </thead>
-            <tbody>
-            	<c:forEach items="${invitations }" var="inv">
-            		<tr class="gradeA">
-            		<td>${inv.userId }</td>
-            		<td><a href="#?invitationId=${inv.invitationId }">${inv.invitationTitle }</a></td>
-            		<c:choose>
-            			<c:when test="${inv.isPass == 0 }">
-            				<td class="center">待审核</td>
-            			</c:when>
-            			<c:when test="${inv.isPass == 1 }">
-            				<td class="center" style="color:green;">已通过</td>
-            			</c:when>
-            			<c:otherwise>
-            				<td class="center" style="color:red;">未通过</td>
-            			</c:otherwise>
-            		</c:choose>
-					<c:choose>
-						<c:when test="${inv.isEnable == 1 }">
-							<td class="center" style="color:red;">已屏蔽</td>
-						</c:when>
-						<c:otherwise>
-							<td class="center">&nbsp;</td>
-						</c:otherwise>
-					</c:choose>
-					<c:choose>
-						<c:when test="${inv.isCream == 1 }">
-							<td class="center" style="color:red;">精华</td>
-						</c:when>
-						<c:otherwise>
-							<td class="center">&nbsp;</td>
-						</c:otherwise>
-					</c:choose>
-            		<td><fmt:formatDate value="${inv.invitationModify }" pattern="yyyy-MM-dd HH-mm-ss"/></td>
-            		</tr>
-            	</c:forEach>
-            </tbody>
-   		</table>  
-	</div>
+	
+	<!-- Validation form -->
+    <form id="validate" class="form" method="post" action="">
+    	<input type="hidden" name="invitationId" value="" />
+		<fieldset>
+			<div class="widget">
+				<div class="title"><img src="images/icons/dark/alert.png" alt="" class="titleIcon" /><h6>帖子权限</h6></div>
+				<div class="formRow">
+					<label>帖子标题:<span class="req">*</span></label>
+     				<div class="formRight">
+     					<input type="text" readonly="readonly" value=""/>
+     				</div>
+     				<div class="clear"></div>
+  				</div>
+				<div class="formRow">
+    				<label>帖子内容:<span class="req">*</span></label>
+    				<div class="formRight">
+    					<!-- 内容 -->
+    				</div>
+    				<div class="clear"></div>
+				</div>
+				<div class="formRow">
+               		<label>权限设置:<span class="req">*</span></label>
+          			<div class="formRight">
+           				<div class="floatL">
+           					<!-- 审核后就不会显示了 -->
+          					<select name="selectReq" id="selectReq" class="validate[required]" >
+                        		<option value="">审核结果</option>
+                           		<option value="opt2">通过</option>
+                           		<option value="opt2">不通过</option>
+                  			</select>
+               			</div>
+         				<div class="floatL" style="margin: 2px 0 0 10px;"><input type="checkbox" id="isEnable" name="isEnable" data-prompt-position="topRight:102" /><label for="isEnable">是否屏蔽</label></div>
+        				<div class="floatL" style="margin: 2px 0 0 10px;"><input type="checkbox" id="isCream" name="isCream" data-prompt-position="topRight:102" /><label for="isCream">是否是精华帖</label></div>
+          			</div>
+                   	<div class="clear"></div>
+        		</div>
+  				<div class="formSubmit"><input type="submit" value="确定" class="redB" /></div>
+      			<div class="clear"></div>
+			</div>   
+		</fieldset>
+	</form>
     
     <!-- Footer line -->
     <div id="footer">
@@ -132,6 +120,7 @@
 </div>
 
 <div class="clear"></div>
+
 </body>
 </html>
 
