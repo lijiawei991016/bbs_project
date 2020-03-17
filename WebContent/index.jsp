@@ -141,122 +141,13 @@
             <table cellpadding="0" cellspacing="0" border="0" class="display dTable">
             	<thead>
             	<tr>
-            		<th>用户</th>
-            		<th>标题</th>
+            		<th>发帖人</th>
+            		<th>帖子标题</th>
             		<th>发帖时间</th>
             		</tr>
             	</thead>
-            	<tbody>
-            	<tr class="gradeA">
-            		<td>zhangSan</td>
-            		<td>疯狂的赛车</td>
-            		<td class="center">4</td>
-            	</tr>
-            	<tr class="gradeA">
-            		<td>zhangSan</td>
-            		<td>疯狂的赛车</td>
-            		<td class="center">4</td>
-            	</tr>
-            	<tr class="gradeA">
-            		<td>zhangSan</td>
-            		<td>疯狂的赛车</td>
-            		<td class="center">4</td>
-            	</tr>
-            	<tr class="gradeA">
-            		<td>zhangSan</td>
-            		<td>疯狂的赛车</td>
-            		<td class="center">4</td>
-            	</tr>
-            	<tr class="gradeA">
-            		<td>zhangSan</td>
-            		<td>疯狂的赛车</td>
-            		<td class="center">4</td>
-            	</tr>
-            	<tr class="gradeA">
-            		<td>zhangSan</td>
-            		<td>疯狂的赛车</td>
-            		<td class="center">4</td>
-            	</tr>
-            	<tr class="gradeA">
-            		<td>zhangSan</td>
-            		<td>疯狂的赛车</td>
-            		<td class="center">4</td>
-            	</tr>
-            	<tr class="gradeA">
-            		<td>zhangSan</td>
-            		<td>疯狂的赛车</td>
-            		<td class="center">4</td>
-            	</tr>
-            	<tr class="gradeA">
-            		<td>zhangSan</td>
-            		<td>疯狂的赛车</td>
-            		<td class="center">4</td>
-            	</tr>
-            	<tr class="gradeA">
-            		<td>zhangSan</td>
-            		<td>疯狂的赛车</td>
-            		<td class="center">4</td>
-            	</tr>
-            	<tr class="gradeA">
-            		<td>zhangSan</td>
-            		<td>疯狂的赛车</td>
-            		<td class="center">4</td>
-            	</tr>
-            	<tr class="gradeA">
-            		<td>zhangSan</td>
-            		<td>疯狂的赛车</td>
-            		<td class="center">4</td>
-            	</tr>
-            	<tr class="gradeA">
-            		<td>zhangSan</td>
-            		<td>疯狂的赛车</td>
-            		<td class="center">4</td>
-            	</tr>
-            	<tr class="gradeA">
-            		<td>zhangSan</td>
-            		<td>疯狂的赛车</td>
-            		<td class="center">4</td>
-            	</tr>
-            	<tr class="gradeA">
-            		<td>zhangSan</td>
-            		<td>疯狂的赛车</td>
-            		<td class="center">4</td>
-            	</tr>
-            	<tr class="gradeA">
-            		<td>zhangSan</td>
-            		<td>疯狂的赛车</td>
-            		<td class="center">4</td>
-            	</tr>
-            	<tr class="gradeA">
-            		<td>zhangSan</td>
-            		<td>疯狂的赛车</td>
-            		<td class="center">4</td>
-            	</tr>
-            	<tr class="gradeA">
-            		<td>zhangSan</td>
-            		<td>疯狂的赛车</td>
-            		<td class="center">4</td>
-            	</tr>
-            	<tr class="gradeA">
-            		<td>zhangSan</td>
-            		<td>疯狂的赛车</td>
-            		<td class="center">4</td>
-            	</tr>
-            	<tr class="gradeA">
-            		<td>zhangSan</td>
-            		<td>疯狂的赛车</td>
-            		<td class="center">4</td>
-            	</tr>
-            	<tr class="gradeA">
-            		<td>zhangSan</td>
-            		<td>疯狂的赛车</td>
-            		<td class="center">4</td>
-            	</tr>
-            	<tr class="gradeA">
-            		<td>zhangSan</td>
-            		<td>疯狂的赛车</td>
-            		<td class="center">4</td>
-            	</tr>
+            	<tbody id="cote">
+            
             	</tbody>
    			</table>
         </div>
@@ -270,7 +161,33 @@
 </div>
 
 <div class="clear"></div>
-
+<script>
+$(function(){
+	// 发送Ajax请求，加载数据
+	$.ajax({
+		type: "POST",
+		url: "${pageContext.request.contextPath}/index_action",
+		success: function(msg){
+			// 移除掉id为cote中的所有内容
+			$("#cote").empty();
+			// 循环获取内容，创建字符串
+			var str = '';
+			for(var i in msg){
+				str += '<tr class="gradeA">'
+            		+'<td>'+msg[i].userId+'</td>'
+            		+'<td>'+msg[i].invitationTitle+'</td>'
+            		+'<td class="center">'+msg[i].invitationCreate+'</td>'
+            		+'</tr>';
+			}
+			// 把内容放入id为cote的元素中
+			$("#cote").append(str);
+		},
+		error: function(XMLHttpRequest,textStatus,errorThrown) {
+		    alert(errorThrown);
+		}
+	});
+});
+</script>
 </body>
 </html>
     

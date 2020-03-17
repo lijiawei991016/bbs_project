@@ -2,6 +2,7 @@ package com.bbs.service;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.List;
 
 import com.bbs.dao.ClientDao;
 import com.bbs.pojo.Invitation;
@@ -32,5 +33,12 @@ public class ClientService {
 		invitation.setInvitationTitle(title);
 		invitation.setInvitationMessage(meg);
 		return clientDao.saveInvitation(invitation);
+	}
+	/**
+	 * 得到所有符合要求的帖子
+	 * @return 帖子列表
+	 */
+	public List<Invitation> listInvitations(){
+		return clientDao.listInvitations();
 	}
 }
