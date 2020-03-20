@@ -79,7 +79,7 @@
     <div class="loginLogo"><img src="${pageContext.request.contextPath}/static/images/loginLogo.png" alt="" /></div>
     <div class="widget">
         <div class="title"><img src="${pageContext.request.contextPath}/static/images/icons/dark/files.png" alt="" class="titleIcon" /><h6 style="color:red;">${empty message?'请登录':message}</h6></div>
-        <form action="${pageContext.request.contextPath}/login" id="validate" class="form">
+        <form action="${pageContext.request.contextPath}/login" id="validate" class="form" method="post">
             <fieldset>
                 <div class="formRow">
                     <label for="login">账户:</label>
