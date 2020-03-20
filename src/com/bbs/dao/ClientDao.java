@@ -11,6 +11,7 @@ import java.util.List;
 import com.bbs.pojo.ClientInvitation;
 import com.bbs.pojo.Invitation;
 import com.bbs.pojo.InvitationAns;
+import com.bbs.pojo.InvitationAnsUser;
 import com.bbs.pojo.UserInvitation;
 import com.bbs.tools.BaseDao;
 
@@ -149,5 +150,43 @@ public class ClientDao {
 			BaseDao.close(con, ps, null);
 		}
 		return 0;
+	}
+	/**
+	 * 列出这个帖子所有的回复列表
+	 * @param invitationId--帖子id
+	 * @return 这个帖子所有回复的信息列表
+	 */
+	public List<InvitationAnsUser> listInvitationAnsById(String invitationId){
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<InvitationAnsUser> invitationAnsUsers = new ArrayList<>();
+		try {
+			con = BaseDao.getCon();
+			String sql = "select bbs_invitation_ans.*,userAlice,userPhoto from"
+					+ " bbs_invitation_ans left join bbs_user"
+					+ " on bbs_invitation_ans.userId=bbs_user.userId"
+					+ " where bbs_invitation_ans.invitationId=?"
+					+ " order by ansDate desc";
+			ps = con.prepareStatement(sql);
+			rs = BaseDao.query(ps,new Object[] {invitationId});
+			// 格式化日期时间
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			while(rs.next()) {
+				invitationAnsUsers.add(
+					new InvitationAnsUser(
+						rs.getString("ansId"),
+						URLDecoder.decode(rs.getString("ansMessage"),"UTF-8"),
+						rs.getString("invitationId"),
+						rs.getString("userAlice"),
+						sdf.parse(rs.getString("ansDate")),
+						rs.getString("userPhoto")));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			BaseDao.close(con, ps, rs);
+		}
+		return invitationAnsUsers;
 	}
 }

@@ -93,21 +93,16 @@
 				</div>
 				<div class="clear" style="border-bottom: 20px solid #EEE;"></div>
 				<!-- 帖子回复 -->
+				<c:forEach items="${anss }" var="ans">
 				<div class="formRow">
-					<img style="width:40px;" src="${pageContext.request.contextPath}/static/file/xxx.jpg" alt="" /><br/>
-					<label>愤怒的麻雀<br/>2020-10-01 10:35:12</label>
-					<div class="formRight">你怕有病吧</div>
+					<img style="width:40px;" src="${pageContext.request.contextPath}/static/file/${ans.userPhoto}" alt="" /><br/>
+					<label>${ans.userAlice }<br/>
+					<fmt:formatDate value="${ans.ansDate }" pattern="yyyy-MM-dd HH:mm:ss"/></label>
+					<div class="formRight">${ans.ansMessage }</div>
 					<div class="clear"></div>
 				</div>
 				<div class="clear"></div>
-				<!-- 帖子回复 -->
-				<div class="formRow">
-					<img style="width:40px;" src="${pageContext.request.contextPath}/static/file/xxx.jpg" alt="" /><br/>
-					<label>奇怪の蜗牛<br/>2020-10-01 10:35:12</label>
-					<div class="formRight">记得吃药！</div>
-					<div class="clear"></div>
-				</div>
-				<div class="clear"></div>
+				</c:forEach>
 				<!-- 回复(只有登录了才能回复) -->
 				<c:choose>
 					<c:when test="${empty user }">

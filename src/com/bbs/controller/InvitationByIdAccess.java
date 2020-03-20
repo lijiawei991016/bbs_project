@@ -1,12 +1,15 @@
 package com.bbs.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bbs.pojo.InvitationAnsUser;
 import com.bbs.pojo.UserInvitation;
 import com.bbs.service.ClientService;
 
@@ -22,6 +25,10 @@ public class InvitationByIdAccess extends HttpServlet {
 		UserInvitation ui = clientService.findUserInvitationById(invitationId);
 		// 把数据放入request
 		request.setAttribute("ui", ui);
+		// 把这个帖子所有回复的信息，获取出来
+		List<InvitationAnsUser> invitationAnsUsers = clientService.listInvitationAnsById(invitationId);
+		// 把所有回复放入request中
+		request.setAttribute("anss", invitationAnsUsers);
 		request.getRequestDispatcher("invitation_answer.jsp").forward(request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

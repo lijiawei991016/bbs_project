@@ -8,6 +8,7 @@ import com.bbs.dao.ClientDao;
 import com.bbs.pojo.ClientInvitation;
 import com.bbs.pojo.Invitation;
 import com.bbs.pojo.InvitationAns;
+import com.bbs.pojo.InvitationAnsUser;
 import com.bbs.pojo.UserInvitation;
 
 public class ClientService {
@@ -69,5 +70,13 @@ public class ClientService {
 		}
 		invitationAns.setAnsMessage(meg);
 		return clientDao.addInvitationAns(invitationAns);
+	}
+	/**
+	 * 列出这个帖子所有的回复列表
+	 * @param invitationId--帖子id
+	 * @return 这个帖子所有回复的信息列表
+	 */
+	public List<InvitationAnsUser> listInvitationAnsById(String invitationId){
+		return clientDao.listInvitationAnsById(invitationId);
 	}
 }
