@@ -7,6 +7,7 @@ import java.util.List;
 import com.bbs.dao.ClientDao;
 import com.bbs.pojo.ClientInvitation;
 import com.bbs.pojo.Invitation;
+import com.bbs.pojo.UserInvitation;
 
 public class ClientService {
 	private ClientDao clientDao = new ClientDao();
@@ -42,5 +43,13 @@ public class ClientService {
 	 */
 	public List<ClientInvitation> listInvitations(Integer plateId){
 		return clientDao.listInvitations(plateId);
+	}
+	/**
+	 * 根据invitationId获取对应账户和帖子信息
+	 * @param invitationId
+	 * @return 成功返回信息 失败返回Null
+	 */
+	public UserInvitation findUserInvitationById(String invitationId) {
+		return clientDao.findUserInvitationById(invitationId);
 	}
 }

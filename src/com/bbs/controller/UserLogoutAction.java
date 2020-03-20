@@ -16,7 +16,8 @@ public class UserLogoutAction extends HttpServlet {
 		String url = request.getParameter("url");
 		// 移除session中的user
 		request.getSession().removeAttribute("user");
-		if(url.endsWith("/index.jsp")) {
+		if(url.endsWith("/index.jsp") 
+				|| url.endsWith("/invitation_answer.jsp")) {
 			response.sendRedirect("/bbs_project/index");
 			return;
 		}

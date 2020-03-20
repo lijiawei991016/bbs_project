@@ -80,38 +80,50 @@
 		<fieldset>
 			<div class="widget">
 				<!-- 帖子内容 -->
-				<div class="title"><h6>如何拯救宇宙</h6></div>
+				<div class="title"><h6>${ui.invitationTitle }</h6></div>
  				<div class="formRow">
- 					<img style="width:30px;" src="${pageContext.request.contextPath}/static/file/xxx.jpg" alt="" /><br/>
-					<label>张三</label>
-					<div class="formRight">哈哈</div>
+ 					<img style="width:40px;" src="${pageContext.request.contextPath}/static/file/${ui.userPhoto}" alt="" /><br/>
+					<label>${ui.userAlice }</label>
+					<div class="formRight">${ui.invitationMessage }</div>
 					<div class="clear"></div>
 				</div>
-				<div class="clear"></div>
+				<div class="clear" style="border-bottom: 20px solid #EEE;"></div>
 				<!-- 帖子回复 -->
 				<div class="formRow">
-					<img style="width:30px;" src="${pageContext.request.contextPath}/static/file/xxx.jpg" alt="" /><br/>
-					<label>李四</label>
+					<img style="width:40px;" src="${pageContext.request.contextPath}/static/file/xxx.jpg" alt="" /><br/>
+					<label>愤怒的麻雀</label>
 					<div class="formRight">你怕有病吧</div>
 					<div class="clear"></div>
 				</div>
 				<div class="clear"></div>
 				<!-- 帖子回复 -->
 				<div class="formRow">
-					<img style="width:30px;" src="${pageContext.request.contextPath}/static/file/xxx.jpg" alt="" /><br/>
-					<label>王五</label>
+					<img style="width:40px;" src="${pageContext.request.contextPath}/static/file/xxx.jpg" alt="" /><br/>
+					<label>奇怪の蜗牛</label>
 					<div class="formRight">记得吃药！</div>
 					<div class="clear"></div>
 				</div>
 				<div class="clear"></div>
-				<!-- 回复 -->
-				<div class="formRow">
-					<label>&nbsp;</label>
-					<div class="formRight" id="editor"></div>
-					<div class="clear"></div>
-				</div>
-				<div class="formSubmit"><input type="submit" value="回复" class="redB" /></div>
-				<div class="clear"></div>
+				<!-- 回复(只有登录了才能回复) -->
+				<c:choose>
+					<c:when test="${empty user }">
+						<div class="formRow">
+							<label>&nbsp;</label>
+							<div class="formRight"><a href="login.jsp">登录后才能回复</a></div>
+							<div class="clear"></div>
+						</div>
+						<div class="clear"></div>
+					</c:when>
+					<c:otherwise>
+						<div class="formRow">
+							<label>&nbsp;</label>
+							<div class="formRight" id="editor"></div>
+							<div class="clear"></div>
+						</div>
+						<div class="formSubmit"><input type="submit" value="回复" class="redB" /></div>
+						<div class="clear"></div>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</fieldset>
 	</form>
@@ -129,7 +141,6 @@ var E = window.wangEditor;
 var editor = new E('#editor');
 // 自定义菜单配置
 editor.customConfig.menus = [
-    'head',// 标题
     'bold',// 加粗
     'fontSize',//字号
     'fontName', //字体
@@ -138,11 +149,8 @@ editor.customConfig.menus = [
     'strikeThrough',  // 删除线
     'foreColor',  // 文字颜色
     'backColor',  // 背景颜色
-    'justify',  // 对齐方式
     'emoticon',  // 表情
-    'image',  // 插入图片
-    'undo',  // 撤销
-    'redo'  // 重复
+    'image'  // 插入图片
 ];
 	// 自定义配置颜色（字体颜色、背景色）
 editor.customConfig.colors = [

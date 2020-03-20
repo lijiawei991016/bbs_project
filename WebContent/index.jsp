@@ -151,7 +151,7 @@
             	<c:forEach items="${invitations }" var="invitation">
             		<tr class="gradeA">
             			<td>${invitation.userAlice }</td>
-            			<td><a href="#?invitationId=${invitation.invitationId }">${invitation.invitationTitle }</a></td>
+            			<td><a href="${pageContext.request.contextPath}/invitation_byid?invitationId=${invitation.invitationId }">${invitation.invitationTitle }</a></td>
             			<td class="center">
             				<fmt:formatDate value="${invitation.invitationCreate }" pattern="yyyy-MM-dd HH:mm:ss"/> 
             			</td>

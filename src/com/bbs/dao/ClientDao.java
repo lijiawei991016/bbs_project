@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.bbs.pojo.ClientInvitation;
 import com.bbs.pojo.Invitation;
+import com.bbs.pojo.UserInvitation;
 import com.bbs.tools.BaseDao;
 
 public class ClientDao {
@@ -84,5 +85,38 @@ public class ClientDao {
 			BaseDao.close(con, ps, rs);
 		}
 		return invitations;
+	}
+	/**
+	 * 根据invitationId获取对应账户和帖子信息
+	 * @param invitationId
+	 * @return 成功返回信息 失败返回Null
+	 */
+	public UserInvitation findUserInvitationById(String invitationId) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		UserInvitation result = null;
+		try {
+			con = BaseDao.getCon();
+			String sql = "select invitationId,userAlice,invitationTitle,"
+					+ "invitationMessage,userPhoto"
+					+ " from bbs_invitation left join bbs_user"
+					+ " on bbs_invitation.userId=bbs_user.userId"
+					+ " where invitationId=?";
+			ps = con.prepareStatement(sql);
+			rs = BaseDao.query(ps,new Object[] {invitationId});
+			if(rs.next()) {
+				result = new UserInvitation(
+					invitationId,
+					rs.getString("userAlice"),rs.getString("userPhoto"),
+					URLDecoder.decode(rs.getString("invitationTitle"),"UTF-8"),
+					URLDecoder.decode(rs.getString("invitationMessage"),"UTF-8"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			BaseDao.close(con, ps, rs);
+		}
+		return result;
 	}
 }
