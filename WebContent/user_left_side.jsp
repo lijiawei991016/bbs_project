@@ -27,7 +27,7 @@ $(function(){
 			var content = '';
 			for(var item in msg){
 				content += '<li class="dash">'
-					+'<a href="index.html?plateId='+msg[item].plateId+'"'
+					+'<a href="${pageContext.request.contextPath}/index?plateId='+msg[item].plateId+'"'
 					+' title="" class="active">'
 					+'<span>'+msg[item].plateTitle+'</span></a></li>';
 			}

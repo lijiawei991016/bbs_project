@@ -43,9 +43,10 @@ public class ClientDao {
 	}
 	/**
 	 * 得到所有符合要求的帖子
+	 * @param plateId--版块id
 	 * @return 帖子列表
 	 */
-	public List<ClientInvitation> listInvitations(){
+	public List<ClientInvitation> listInvitations(Integer plateId){
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -58,7 +59,11 @@ public class ClientDao {
 					+ "invitationCreate"
 					+ " from bbs_invitation left join bbs_user"
 					+ " on bbs_invitation.userId=bbs_user.userId"
-					+ " where bbs_invitation.isPass=1 order by invitationCreate desc";
+					+ " where bbs_invitation.isPass=1";
+			if(plateId != null) {
+				sql += " and plateId="+plateId;
+			}
+			sql += " order by invitationCreate desc";
 			ps = con.prepareStatement(sql);
 			rs = BaseDao.query(ps,null);
 			// 格式化日期时间

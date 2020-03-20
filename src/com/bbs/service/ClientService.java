@@ -37,9 +37,10 @@ public class ClientService {
 	}
 	/**
 	 * 得到所有符合要求的帖子
+	 * @param plateId--版块id
 	 * @return 帖子列表
 	 */
-	public List<ClientInvitation> listInvitations(){
-		return clientDao.listInvitations();
+	public List<ClientInvitation> listInvitations(Integer plateId){
+		return clientDao.listInvitations(plateId);
 	}
 }
