@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <div id="leftSide">
     <div class="logo"><a href="${pageContext.request.contextPath}/index"><img src="${pageContext.request.contextPath}/static/images/logo.png" alt="" /></a></div>
     
@@ -31,6 +33,7 @@ $(function(){
 					+' title="" class="active">'
 					+'<span>'+msg[item].plateTitle+'</span></a></li>';
 			}
+			$("ul[class='nav']").append('<li class="dash"><a href="${pageContext.request.contextPath}/index" title="" class="active"><span>全部</span></a></li>');
 			$("ul[class='nav']").append(content);
 		},
 		error: function(XMLHttpRequest,textStatus,errorThrown) {
