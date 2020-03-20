@@ -1,5 +1,5 @@
 <div id="leftSide">
-    <div class="logo"><a href="${pageContext.request.contextPath}/index.jsp"><img src="${pageContext.request.contextPath}/static/images/logo.png" alt="" /></a></div>
+    <div class="logo"><a href="${pageContext.request.contextPath}/index"><img src="${pageContext.request.contextPath}/static/images/logo.png" alt="" /></a></div>
     
     <div class="sidebarSep mt0"></div>
     

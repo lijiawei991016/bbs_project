@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bbs.pojo.ClientInvitation;
 import com.bbs.pojo.Invitation;
 import com.bbs.tools.BaseDao;
 
@@ -44,17 +45,20 @@ public class ClientDao {
 	 * 得到所有符合要求的帖子
 	 * @return 帖子列表
 	 */
-	public List<Invitation> listInvitations(){
+	public List<ClientInvitation> listInvitations(){
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		// 保存所有帖子的列表
-		List<Invitation> invitations = new ArrayList<>();
+		List<ClientInvitation> invitations = new ArrayList<>();
 		try {
 			con = BaseDao.getCon();
 			// 增加了条件，必须通过审核，才能显示
-			String sql = "select * from bbs_invitation where isPass=1"
-					+ " order by invitationCreate desc";
+			String sql = "select invitationId,userAlice,invitationTitle,"
+					+ "invitationCreate"
+					+ " from bbs_invitation left join bbs_user"
+					+ " on bbs_invitation.userId=bbs_user.userId"
+					+ " where bbs_invitation.isPass=1 order by invitationCreate desc";
 			ps = con.prepareStatement(sql);
 			rs = BaseDao.query(ps,null);
 			// 格式化日期时间
@@ -62,15 +66,11 @@ public class ClientDao {
 			// 逐行把信息读取出来，放入列表中
 			while(rs.next()) {
 				invitations.add(
-					new Invitation(
+					new ClientInvitation(
 							rs.getString("invitationId"),
+							rs.getString("userAlice"),
 							URLDecoder.decode(rs.getString("invitationTitle"),"UTF-8"),
-							URLDecoder.decode(rs.getString("invitationMessage"),"UTF-8"),
-							rs.getString("userId"),rs.getInt("plateId"),
-							rs.getInt("categoryId"),rs.getInt("isPass"),
-							rs.getInt("isEnable"),rs.getInt("isCream"),
-							sdf.parse(rs.getString("invitationCreate")),
-							sdf.parse(rs.getString("invitationModify")))
+							sdf.parse(rs.getString("invitationCreate")))
 				);
 			}
 		} catch (Exception e) {

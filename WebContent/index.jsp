@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -80,14 +81,14 @@
     <!-- Responsive header -->
     <div class="resp">
         <div class="respHead">
-            <a href="index.html" title=""><img src="${pageContext.request.contextPath}/static/images/loginLogo.png" alt="" /></a>
+            <a href="${pageContext.request.contextPath}/index" title=""><img src="${pageContext.request.contextPath}/static/images/loginLogo.png" alt="" /></a>
         </div>
         
         <div class="cLine"></div>
         <div class="smalldd">
             <span class="goTo"><img src="${pageContext.request.contextPath}/static/images/icons/light/home.png" alt="" />Dashboard</span>
             <ul class="smallDropdown">
-                <li><a href="index.html" title=""><img src="${pageContext.request.contextPath}/static/images/icons/light/home.png" alt="" />Dashboard</a></li>
+                <li><a href="${pageContext.request.contextPath}/index" title=""><img src="${pageContext.request.contextPath}/static/images/icons/light/home.png" alt="" />Dashboard</a></li>
                 <li><a href="charts.html" title=""><img src="${pageContext.request.contextPath}/static/images/icons/light/stats.png" alt="" />Statistics and charts</a></li>
                 <li><a href="#" title="" class="exp"><img src="${pageContext.request.contextPath}/static/images/icons/light/pencil.png" alt="" />Forms stuff<strong>4</strong></a>
                     <ul>
@@ -144,10 +145,18 @@
             		<th>发帖人</th>
             		<th>帖子标题</th>
             		<th>发帖时间</th>
-            		</tr>
+            	</tr>
             	</thead>
             	<tbody id="cote">
-            
+            	<c:forEach items="${invitations }" var="invitation">
+            		<tr class="gradeA">
+            			<td>${invitation.userAlice }</td>
+            			<td><a href="#?invitationId=${invitation.invitationId }">${invitation.invitationTitle }</a></td>
+            			<td class="center">
+            				<fmt:formatDate value="${invitation.invitationCreate }" pattern="yyyy-MM-dd HH:mm:ss"/> 
+            			</td>
+            		</tr>
+            	</c:forEach>
             	</tbody>
    			</table>
         </div>
@@ -161,6 +170,7 @@
 </div>
 
 <div class="clear"></div>
+<!--  
 <script>
 $(function(){
 	// 发送Ajax请求，加载数据
@@ -188,6 +198,7 @@ $(function(){
 	});
 });
 </script>
+-->
 </body>
 </html>
     

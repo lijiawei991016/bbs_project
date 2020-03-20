@@ -5,6 +5,7 @@ import java.net.URLEncoder;
 import java.util.List;
 
 import com.bbs.dao.ClientDao;
+import com.bbs.pojo.ClientInvitation;
 import com.bbs.pojo.Invitation;
 
 public class ClientService {
@@ -38,7 +39,7 @@ public class ClientService {
 	 * 得到所有符合要求的帖子
 	 * @return 帖子列表
 	 */
-	public List<Invitation> listInvitations(){
+	public List<ClientInvitation> listInvitations(){
 		return clientDao.listInvitations();
 	}
 }
