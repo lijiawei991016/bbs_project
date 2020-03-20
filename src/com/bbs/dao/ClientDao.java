@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.bbs.pojo.ClientInvitation;
 import com.bbs.pojo.Invitation;
+import com.bbs.pojo.InvitationAns;
 import com.bbs.pojo.UserInvitation;
 import com.bbs.tools.BaseDao;
 
@@ -99,18 +100,21 @@ public class ClientDao {
 		try {
 			con = BaseDao.getCon();
 			String sql = "select invitationId,userAlice,invitationTitle,"
-					+ "invitationMessage,userPhoto"
+					+ "invitationMessage,userPhoto,invitationCreate"
 					+ " from bbs_invitation left join bbs_user"
 					+ " on bbs_invitation.userId=bbs_user.userId"
 					+ " where invitationId=?";
 			ps = con.prepareStatement(sql);
 			rs = BaseDao.query(ps,new Object[] {invitationId});
+			// 格式化日期时间
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			if(rs.next()) {
 				result = new UserInvitation(
 					invitationId,
 					rs.getString("userAlice"),rs.getString("userPhoto"),
 					URLDecoder.decode(rs.getString("invitationTitle"),"UTF-8"),
-					URLDecoder.decode(rs.getString("invitationMessage"),"UTF-8"));
+					URLDecoder.decode(rs.getString("invitationMessage"),"UTF-8"),
+					sdf.parse(rs.getString("invitationCreate")));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -118,5 +122,32 @@ public class ClientDao {
 			BaseDao.close(con, ps, rs);
 		}
 		return result;
+	}
+	/**
+	 * 保存回复信息到数据库
+	 * @param invitationAns
+	 * @return 1-成功 0-失败
+	 */
+	public int addInvitationAns(InvitationAns invitationAns) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		try {
+			con = BaseDao.getCon();
+			String sql = "insert into bbs_invitation_ans("
+				+ "ansId,ansMessage,invitationId,"
+				+ "userId,ansDate) "
+				+ "values(?,?,?,?,?)";
+			ps = con.prepareStatement(sql);
+			return BaseDao.update(ps,new Object[] {
+				invitationAns.getAnsId(),invitationAns.getAnsMessage(),
+				invitationAns.getInvitationId(),invitationAns.getUserId(),
+				invitationAns.getAnsDate()
+			});
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			BaseDao.close(con, ps, null);
+		}
+		return 0;
 	}
 }

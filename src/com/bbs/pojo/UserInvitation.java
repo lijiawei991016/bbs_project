@@ -1,22 +1,32 @@
 package com.bbs.pojo;
 
+import java.util.Date;
+
 public class UserInvitation {
 	private String invitationId;
 	private String userAlice;
 	private String userPhoto;
 	private String invitationTitle;
 	private String invitationMessage;
+	private Date invitationCreate;
 	public UserInvitation() {
 		super();
 	}
 	public UserInvitation(String invitationId, String userAlice, String userPhoto, String invitationTitle,
-			String invitationMessage) {
+			String invitationMessage, Date invitationCreate) {
 		super();
 		this.invitationId = invitationId;
 		this.userAlice = userAlice;
 		this.userPhoto = userPhoto;
 		this.invitationTitle = invitationTitle;
 		this.invitationMessage = invitationMessage;
+		this.invitationCreate = invitationCreate;
+	}
+	public Date getInvitationCreate() {
+		return invitationCreate;
+	}
+	public void setInvitationCreate(Date invitationCreate) {
+		this.invitationCreate = invitationCreate;
 	}
 	public String getInvitationId() {
 		return invitationId;

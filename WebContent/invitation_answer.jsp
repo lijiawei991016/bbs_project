@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -76,14 +77,17 @@
 <div id="rightSide">
 
 	<%@ include file="user_top_nav.jsp" %>
-	<form id="validate" class="form" method="post" action="">
+	<form id="validate" class="form" method="post" action="${pageContext.request.contextPath}/answer_invitation">
+		<input type="hidden" name="invitationId" value="${ui.invitationId}"/>
+		<input type="hidden" name="ansMessage" id="ansMessage"/>
 		<fieldset>
 			<div class="widget">
 				<!-- 帖子内容 -->
 				<div class="title"><h6>${ui.invitationTitle }</h6></div>
  				<div class="formRow">
  					<img style="width:40px;" src="${pageContext.request.contextPath}/static/file/${ui.userPhoto}" alt="" /><br/>
-					<label>${ui.userAlice }</label>
+					<label>${ui.userAlice }<br/>
+					<fmt:formatDate value="${ui.invitationCreate }" pattern="yyyy-MM-dd HH:mm:ss"/></label>
 					<div class="formRight">${ui.invitationMessage }</div>
 					<div class="clear"></div>
 				</div>
@@ -91,7 +95,7 @@
 				<!-- 帖子回复 -->
 				<div class="formRow">
 					<img style="width:40px;" src="${pageContext.request.contextPath}/static/file/xxx.jpg" alt="" /><br/>
-					<label>愤怒的麻雀</label>
+					<label>愤怒的麻雀<br/>2020-10-01 10:35:12</label>
 					<div class="formRight">你怕有病吧</div>
 					<div class="clear"></div>
 				</div>
@@ -99,7 +103,7 @@
 				<!-- 帖子回复 -->
 				<div class="formRow">
 					<img style="width:40px;" src="${pageContext.request.contextPath}/static/file/xxx.jpg" alt="" /><br/>
-					<label>奇怪の蜗牛</label>
+					<label>奇怪の蜗牛<br/>2020-10-01 10:35:12</label>
 					<div class="formRight">记得吃药！</div>
 					<div class="clear"></div>
 				</div>
@@ -116,7 +120,7 @@
 					</c:when>
 					<c:otherwise>
 						<div class="formRow">
-							<label>&nbsp;</label>
+							<label style="color:red;">${message }</label>
 							<div class="formRight" id="editor"></div>
 							<div class="clear"></div>
 						</div>
@@ -199,7 +203,7 @@ editor.create();
 $(function(){
  $("form").submit(function(){
 	 // 把富文本框中的内容作为id为invitationMessage的值
-	 $("#invitationMessage").val(editor.txt.html());
+	 $("#ansMessage").val(editor.txt.html());
  });
 });
 </script>

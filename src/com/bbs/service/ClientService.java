@@ -7,6 +7,7 @@ import java.util.List;
 import com.bbs.dao.ClientDao;
 import com.bbs.pojo.ClientInvitation;
 import com.bbs.pojo.Invitation;
+import com.bbs.pojo.InvitationAns;
 import com.bbs.pojo.UserInvitation;
 
 public class ClientService {
@@ -51,5 +52,22 @@ public class ClientService {
 	 */
 	public UserInvitation findUserInvitationById(String invitationId) {
 		return clientDao.findUserInvitationById(invitationId);
+	}
+	/**
+	 * 保存回复信息到数据库
+	 * @param invitationAns
+	 * @return 1-成功 0-失败
+	 */
+	public int addInvitationAns(InvitationAns invitationAns) {
+		// 对发帖的内容进行过滤处理(正则表达式)
+		String meg = invitationAns.getAnsMessage();
+		meg = meg.replaceAll("(共产党)|(你妈)|(操)","*");
+		try {
+			meg = URLEncoder.encode(meg, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		invitationAns.setAnsMessage(meg);
+		return clientDao.addInvitationAns(invitationAns);
 	}
 }
