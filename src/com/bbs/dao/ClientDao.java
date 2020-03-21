@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.bbs.pojo.ClientInvitation;
@@ -109,12 +110,16 @@ public class ClientDao {
 			rs = BaseDao.query(ps,new Object[] {invitationId});
 			// 格式化日期时间
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			// 一条帖子信息
 			if(rs.next()) {
 				result = new UserInvitation(
-					invitationId,
-					rs.getString("userAlice"),rs.getString("userPhoto"),
+					invitationId,rs.getString("userAlice"),rs.getString("userPhoto"),
 					URLDecoder.decode(rs.getString("invitationTitle"),"UTF-8"),
 					URLDecoder.decode(rs.getString("invitationMessage"),"UTF-8"),
+					// new Date()方式存入数据库时数据库以字符串格式保存日期时间(2020-03-18 17:21:13)
+					// .parse()方法是将从数据库获取出来的字符串格式日期时间转换为系统日期时间格式(Wed Mar 18 17:21:13 CST 2020)  --.format()方法反之
+					// 前端页面显示时,用jstl标签将系统转换为字符串显示即可
+									// ---- <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 					sdf.parse(rs.getString("invitationCreate")));
 			}
 		} catch (Exception e) {
@@ -134,10 +139,8 @@ public class ClientDao {
 		PreparedStatement ps = null;
 		try {
 			con = BaseDao.getCon();
-			String sql = "insert into bbs_invitation_ans("
-				+ "ansId,ansMessage,invitationId,"
-				+ "userId,ansDate) "
-				+ "values(?,?,?,?,?)";
+			String sql = "insert into bbs_invitation_ans(ansId,ansMessage,"
+					+ "invitationId,userId,ansDate) values(?,?,?,?,?)";
 			ps = con.prepareStatement(sql);
 			return BaseDao.update(ps,new Object[] {
 				invitationAns.getAnsId(),invitationAns.getAnsMessage(),
@@ -153,7 +156,7 @@ public class ClientDao {
 	}
 	/**
 	 * 列出这个帖子所有的回复列表
-	 * @param invitationId--帖子id
+	 * @param invitationId--根据帖子id查找该帖子的所有回复信息
 	 * @return 这个帖子所有回复的信息列表
 	 */
 	public List<InvitationAnsUser> listInvitationAnsById(String invitationId){
@@ -172,6 +175,7 @@ public class ClientDao {
 			rs = BaseDao.query(ps,new Object[] {invitationId});
 			// 格式化日期时间
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			// 多行数据
 			while(rs.next()) {
 				invitationAnsUsers.add(
 					new InvitationAnsUser(

@@ -20,15 +20,16 @@ public class InvitationByIdAccess extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		// 获取invitationId
+		// 客户端点击帖子显示详细信息
 		String invitationId = request.getParameter("invitationId");
 		UserInvitation ui = clientService.findUserInvitationById(invitationId);
-		// 把数据放入request
 		request.setAttribute("ui", ui);
-		// 把这个帖子所有回复的信息，获取出来
+		
+		// 把这个帖子所有回复的信息从数据库中获取出来
 		List<InvitationAnsUser> invitationAnsUsers = clientService.listInvitationAnsById(invitationId);
-		// 把所有回复放入request中
 		request.setAttribute("anss", invitationAnsUsers);
+		
+		// 跳转
 		request.getRequestDispatcher("invitation_answer.jsp").forward(request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -62,18 +62,21 @@ public class ClientService {
 	public int addInvitationAns(InvitationAns invitationAns) {
 		// 对发帖的内容进行过滤处理(正则表达式)
 		String meg = invitationAns.getAnsMessage();
+		// 替换敏感词汇
 		meg = meg.replaceAll("(共产党)|(你妈)|(操)","*");
+		// 替换后对回复信息编码
 		try {
 			meg = URLEncoder.encode(meg, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
+		// 将过滤处理后的信息重新赋值给对象
 		invitationAns.setAnsMessage(meg);
 		return clientDao.addInvitationAns(invitationAns);
 	}
 	/**
 	 * 列出这个帖子所有的回复列表
-	 * @param invitationId--帖子id
+	 * @param invitationId--根据帖子id查找该帖子的所有回复信息
 	 * @return 这个帖子所有回复的信息列表
 	 */
 	public List<InvitationAnsUser> listInvitationAnsById(String invitationId){

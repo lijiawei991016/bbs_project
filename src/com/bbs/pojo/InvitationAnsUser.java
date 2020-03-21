@@ -1,7 +1,7 @@
 package com.bbs.pojo;
 
 import java.util.Date;
-
+// 将该帖子所有回复的信息从数据库中获取出来并显示到前端页面用的实体类
 public class InvitationAnsUser {
 	private String ansId;
 	private String ansMessage;

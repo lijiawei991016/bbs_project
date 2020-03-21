@@ -1,7 +1,7 @@
 package com.bbs.pojo;
 
 import java.util.Date;
-
+// 根据invitationId从数据库中获取对应账户和帖子信息并显示到前端页面用的实体类
 public class UserInvitation {
 	private String invitationId;
 	private String userAlice;

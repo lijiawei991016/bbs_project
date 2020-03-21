@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
 import com.bbs.pojo.ClientInvitation;
-import com.bbs.pojo.Invitation;
 import com.bbs.service.ClientService;
 
 @WebServlet("/index_action")

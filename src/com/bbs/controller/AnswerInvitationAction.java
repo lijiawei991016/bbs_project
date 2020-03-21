@@ -42,7 +42,9 @@ public class AnswerInvitationAction extends HttpServlet {
 		clientService.addInvitationAns(invitationAns);
 		request.setAttribute("message", "回复内容成功");
 		request.getRequestDispatcher("/invitation_byid").forward(request,response);
+		return;
 	}
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

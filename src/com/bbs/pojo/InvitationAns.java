@@ -1,7 +1,7 @@
 package com.bbs.pojo;
 
 import java.util.Date;
-
+// 将用户对该贴子的单条回复信息添加至数据库用的实体类
 public class InvitationAns {
 	private String ansId;
 	private String ansMessage;

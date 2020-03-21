@@ -79,6 +79,7 @@
 	<%@ include file="user_top_nav.jsp" %>
 	<form id="validate" class="form" method="post" action="${pageContext.request.contextPath}/answer_invitation">
 		<input type="hidden" name="invitationId" value="${ui.invitationId}"/>
+		<!-- 用于保存富文本框中内容的隐藏表单 -->
 		<input type="hidden" name="ansMessage" id="ansMessage"/>
 		<fieldset>
 			<div class="widget">

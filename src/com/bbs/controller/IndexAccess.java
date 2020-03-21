@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bbs.pojo.ClientInvitation;
-import com.bbs.pojo.Invitation;
 import com.bbs.service.ClientService;
 import com.mysql.jdbc.StringUtils;
 
